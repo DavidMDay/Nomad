@@ -1,0 +1,9 @@
+---
+Diagnostics:
+  UnusedIncludes: Strict
+Completion:
+  AllScopes: Yes
+Index:
+  Background: Build
+Hover:
+  ShowAKA: Yes

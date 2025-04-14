@@ -1,0 +1,19 @@
+---
+Checks:          '-*,bugprone*,cppcoreguidelines*,-cppcoreguidelines-pro-bounds*,-cppcoreguidelines-avoid-do-while,-cppcoreguidelines-owning-memory,-cppcoreguidelines-special-member-functions,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-avoid-c-arrays,-cppcoreguidelines-non-private-member-variables-in-classes,misc-unconventional-assign-operator,-misc-non-private-member-variables-in-classes,modernize*,-modernize-use-nodiscard,-modernize-avoid-c-arrays,-modernize-use-trailing-return-type,mpi*,performance*,readability*,-readability-implicit-bool-conversion,-readability-magic-numbers,-readability-identifier-length,-readability-else-after-return,-readability-redundant-access-specifiers,-bugprone-easily-swappable-parameters,kokkos*,google-build-namespaces'
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+CheckOptions:
+  - key:             readability-braces-around-statements.ShortStatementLines
+    value:           '2'
+  - key:             modernize-use-nullptr.NullMacros
+    value:           'NULL'
+  - key:             kokkos-KokkosImplicitThisCapture.CheckIfExplicitHost
+    value:           '1'
+  - key:             kokkos-KokkosImplicitThisCapture.HostTypeDefRegex
+    value:           '.*Host.*Space.*'
+  - key:             modernize-use-override.AllowOverrideAndFinal
+    value:           'true'
+  - key:             readability-function-cognitive-complexity.IgnoreMacros
+    value:           'true'
+...
+
