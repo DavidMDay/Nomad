@@ -11,59 +11,57 @@
 // major (op_row) or column major (op_col) ordering.
 // The integer pair = number of rows, columns
 
-
-std::vector<double>
-extract_column_and_scale(std::pair<int, int> sz,
+std::vector<double> extract_column_and_scale(std::pair<int, int> sz,
                                              const std::vector<std::vector<double>> &R,
                                              int col,
                                              double scale);
 
-std::pair<int, int>
-get_size(const std::vector<std::vector<double>> &A);
+std::pair<int, int> get_size(const std::vector<std::vector<double>> &A);
 
 // row-major ordering
 template <typename T>
-std::vector<T> vectorOfMatrix(bool transpose, const std::vector<std::vector<T>>& matrix) {
-    auto sz = get_size(matrix);
-    std::vector<T> lengthy;
-    lengthy.reserve(sz.first * sz.second);
-    if (transpose) {
-      for (int j = 0; j < sz.second; ++j) {
-        for (int i = 0; i < sz.first; ++i) {
-          lengthy.push_back(matrix[i][j]);
-        }
-      }
-    } else {
+std::vector<T> vectorOfMatrix(bool transpose, const std::vector<std::vector<T>> &matrix) {
+  auto sz = get_size(matrix);
+  std::vector<T> lengthy;
+  lengthy.reserve(sz.first * sz.second);
+  if (transpose) {
+    for (int j = 0; j < sz.second; ++j) {
       for (int i = 0; i < sz.first; ++i) {
-        for (int j = 0; j < sz.second; ++j) {
-          lengthy.push_back(matrix[i][j]);
-        }
+        lengthy.push_back(matrix[i][j]);
       }
     }
-    return lengthy;
+  } else {
+    for (int i = 0; i < sz.first; ++i) {
+      for (int j = 0; j < sz.second; ++j) {
+        lengthy.push_back(matrix[i][j]);
+      }
+    }
+  }
+  return lengthy;
 }
 
 // row-major ordering
 template <typename T>
-std::vector<std::vector<T>> matrixOfVector(bool transpose, std::pair<int,int> sz, const std::vector<T>& v) {
-    auto X = std::vector<std::vector<double>>(sz.first, std::vector<double>(sz.second, 0.0));
-    int k = 0;
-    if (transpose) {
-      for (int j = 0; j < sz.second; ++j) {
-        for (int i = 0; i < sz.first; ++i) {
-          X[i][j] = v[k++];
-        }
-      }
-    } else {
+std::vector<std::vector<T>> matrixOfVector(bool transpose,
+                                           std::pair<int, int> sz,
+                                           const std::vector<T> &v) {
+  auto X = std::vector<std::vector<double>>(sz.first, std::vector<double>(sz.second, 0.0));
+  int k = 0;
+  if (transpose) {
+    for (int j = 0; j < sz.second; ++j) {
       for (int i = 0; i < sz.first; ++i) {
-        for (int j = 0; j < sz.second; ++j) {
-          X[i][j] = v[k++];
-        }
+        X[i][j] = v[k++];
       }
     }
-    return X;
+  } else {
+    for (int i = 0; i < sz.first; ++i) {
+      for (int j = 0; j < sz.second; ++j) {
+        X[i][j] = v[k++];
+      }
+    }
+  }
+  return X;
 }
-
 
 double ip_mat_row_vec(const std::vector<double> &w,
                       std::pair<int, int> sz,
@@ -100,23 +98,25 @@ std::vector<double> gemvt(std::pair<int, int> sz,
                           const std::vector<double> &w,
                           int start);
 
-void trtrs( int /*unused*/,  const std::vector<std::vector<double>> &R, std::vector<double> &rhs);
+void trtrs(int /*unused*/, const std::vector<std::vector<double>> &R, std::vector<double> &rhs);
 
+void axpy(double alpha,
+          std::pair<int, int> sz,
+          const std::vector<std::vector<double>> &X,
+          std::vector<std::vector<double>> &Y);
 
-void axpy(double alpha, std::pair<int, int> sz,
-             const std::vector<std::vector<double>> &X,
-             std::vector<std::vector<double>> &Y);
+void axpy(const std::vector<double> &x, double a, std::vector<double> &y);
 
-void axpy( const std::vector<double>& x,  double a, std::vector<double>& y);
-
-void gemm_nn(double alpha, std::pair<int, int> szLeft,
+void gemm_nn(double alpha,
+             std::pair<int, int> szLeft,
              const std::vector<std::vector<double>> &Left,
              std::pair<int, int> szRight,
              const std::vector<std::vector<double>> &Right,
              double beta,
              std::vector<std::vector<double>> &P);
 
-void gemm_tn(double alpha, std::pair<int, int> szLeft,
+void gemm_tn(double alpha,
+             std::pair<int, int> szLeft,
              const std::vector<std::vector<double>> &Left,
              std::pair<int, int> szRight,
              const std::vector<std::vector<double>> &Right,
@@ -124,30 +124,31 @@ void gemm_tn(double alpha, std::pair<int, int> szLeft,
              std::vector<std::vector<double>> &P);
 
 void gerSpecial(std::pair<int, int> sz,  // m-by-n,  a += x y'
-         std::vector<double> &x,
-         int /*unused*/,  // size_x, >= 1 + (m - 1)*incx;
-         std::vector<double> &y,
-         int /*unused*/,  // size_y >= 1 + (n - 1)*incy;
-         std::vector<std::vector<double>> &A, int start);
+                std::vector<double> &x,
+                int /*unused*/,  // size_x, >= 1 + (m - 1)*incx;
+                std::vector<double> &y,
+                int /*unused*/,  // size_y >= 1 + (n - 1)*incy;
+                std::vector<std::vector<double>> &B,
+                int start);
 
-void ger(std::pair<int, int> sz,  // m-by-n,  a += x y'
+void ger(std::pair<int, int> sz,  // m-by-n
          std::vector<double> &x,
-         int /*unused*/,  // size_x, >= 1 + (m - 1)*incx;
+         int /*unused*/,  // size_x >= 1 + (m - 1)*incx;
          std::vector<double> &y,
          int /*unused*/,  // size_y >= 1 + (n - 1)*incy;
-         std::vector<std::vector<double>> &A,
+         std::vector<std::vector<double>> &B,
          int start);
 
-void print_matrix(const std::string &name, const std::vector<std::vector<double>> &R);
-void print_square_matrix_col( std::vector<double> m);
+void print_matrix(const std::string &name, const std::vector<std::vector<double>> &M);
+void print_square_matrix_col(std::vector<double> m);
 
-std::vector<double> square_matrix_transpose(  const std::vector<double>& B);
-double normInf( const std::vector<double> x);
-void scale_vector( std::vector<double>& v,  double scale);
+std::vector<double> square_matrix_transpose(const std::vector<double> &B);
+double normInf(const std::vector<double>& x);
+void scale_vector(std::vector<double> &v, double scale);
 
 // return B(:,start:end) * w * alpha
 std::vector<double> gemv(std::pair<int, int> sz,
-  double alpha,
-  const std::vector<double> &B,
-  const std::vector<double> &w,
-  int start);
+                         double alpha,
+                         const std::vector<double> &B,
+                         const std::vector<double> &w,
+                         int start);
