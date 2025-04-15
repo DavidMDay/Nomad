@@ -16,6 +16,8 @@ set_property(TARGET hblib PROPERTY CXX_STANDARD 17)
 
 add_library(libmatrixlib STATIC IMPORTED)
 include_directories(libmatrixlib INTERFACE ../matrix_computations)
+message( " DEBUG It would be confusing if the set target properties .. ")
+message( " DEBUG .. imported location is relative to the build directory.")
 set_target_properties(libmatrixlib PROPERTIES IMPORTED_LOCATION ../matrix_computations/libmatrixlib.a)
 
 target_link_libraries(tester hblib libmatrixlib)

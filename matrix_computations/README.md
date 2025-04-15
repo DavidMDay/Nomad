@@ -29,13 +29,14 @@ $ type cpp
 *Building The file Helper.sh is both a script that does something like
 'make clean' and also a cheat sheet of the commands needed to build
 
+**My build of Harmonic Balance using Matrix Computations is weird **
+
+For example, the build directories can only be in one location.  This is why the instructinos have to be so long.
+
 $ mkdir build_mc  
-$ cp Nomad/matrix_computations/Helper.sh build_mc 
+$ cp matrix_computations/Helper.sh build_mc 
 $ cd build_mc/  
 $ cat Helper.sh  
-
-I build outside of the code, but maybe a build directory within the project is standard now?
-Builds often fail, in which case the build directory is typically deleted.
 
 *Testing: Unit tests are located in the tests/ directory. The main program runs the tests.
 

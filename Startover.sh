@@ -1,3 +1,3 @@
-rm -rf mc_build
-rm -rf hb_build
+rm -rf build_mc
+rm -rf build_hb
 rm */*.a */*.json

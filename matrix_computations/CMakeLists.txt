@@ -11,8 +11,17 @@ project(matrix_computations)
 # Enable testing
 enable_testing()
 
-# Add library
-add_library(matrixlib util.cpp QRdecomposition.cpp hqr2.cpp applyQ.cpp applyQT.cpp triuSol.cpp)
+# Add library   static is big, no runtime dependency
+# shared is small, shared library must be present
+
+message( DEBUG "by default libraries are")
+if (BUILD_SHARED_LIBS)
+        message( DEBUG ". . . . . . . . . . . . shared (dylib)")
+else ()
+        message( DEBUG ". . . . . . . . . . . . static (a)")
+endif ()
+
+add_library(matrixlib STATIC util.cpp QRdecomposition.cpp hqr2.cpp applyQ.cpp applyQT.cpp triuSol.cpp)
 set_property(TARGET matrixlib PROPERTY CXX_STANDARD 17)
 
 # Add executable
