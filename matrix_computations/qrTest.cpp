@@ -27,7 +27,7 @@ bool hqrTestDecomposition() {
     std::vector<std::vector<double>> Q1;
     std::vector<std::vector<double>> R1;
     QRdecomposition(A, Q1, R1);
-    pass = pass && testDecomposition(Q1,R1,A,grab_bag);
+    pass = pass && testDecomposition(Q1, R1, A, grab_bag);
   }
   return pass;
 }
@@ -46,23 +46,23 @@ bool hqr2Test() {
     std::vector<double> tau;
     auto QX = A;
     hqr2(QX, tau);
-    auto R1 = triu(sz,QX);
+    auto R1 = triu(sz, QX);
     auto Q1 = std::vector<std::vector<double>>(sz.first, std::vector<double>(sz.second, 0.0));
     for (int i = 0; i < sz.second; i++) {
       Q1[i][i] = 1.0;
     }
     applyQ(QX, tau, Q1);
     auto Id = Q1;
-    applyQT(QX,tau,Id);
+    applyQT(QX, tau, Id);
     for (int i = 0; i < sz.second; i++) {
       Id[i][i] -= 1.0;
     }
     auto residQT = norm1(sz, Id);
-    if ( residQT > grab_bag.tol) {
+    if (residQT > grab_bag.tol) {
       std::cout << "QT test failed" << std::endl;
       pass = false;
     }
-    pass = pass && testDecomposition(Q1,R1,A,grab_bag);
+    pass = pass && testDecomposition(Q1, R1, A, grab_bag);
   }
   return pass;
 }

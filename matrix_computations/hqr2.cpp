@@ -1,8 +1,9 @@
+#include <cassert>
+#include <cmath>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cmath>
-#include <cassert>
+
 #include "util.hpp"
 void hqr2(std::vector<std::vector<double>>& A, std::vector<double>& tau) {
   auto sz = get_size(A);
@@ -17,7 +18,7 @@ void hqr2(std::vector<std::vector<double>>& A, std::vector<double>& tau) {
 
     std::vector<double> w(mm - j, 0.0);
     w[0] = 1.0;
-    for (int row = j+1; row < mm; row++) {
+    for (int row = j + 1; row < mm; row++) {
       w[row - j] = A[row][j] / u1;
     }
     for (int row = j + 1; row < mm; row++) {
@@ -25,7 +26,7 @@ void hqr2(std::vector<std::vector<double>>& A, std::vector<double>& tau) {
     }
     A[j][j] = s * normx;
     tau[j] = -s * u1 / normx;
-    if (j+1 == nn) continue;
+    if (j + 1 == nn) continue;
 
     std::vector<double> y(nn - j - 1, 0.0);
     for (int row = j; row < mm; row++) {
@@ -34,8 +35,8 @@ void hqr2(std::vector<std::vector<double>>& A, std::vector<double>& tau) {
       }
     }
 
-    for (int k = 0; k < nn-j-1; k++) {
-        y[k] *= tau[j];
+    for (int k = 0; k < nn - j - 1; k++) {
+      y[k] *= tau[j];
     }
 
     for (int row = j; row < mm; row++) {

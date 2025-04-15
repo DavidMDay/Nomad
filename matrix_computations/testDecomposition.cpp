@@ -31,7 +31,7 @@ bool checkSize(std::pair<int, int> szQ, std::pair<int, int> szR, std::pair<int, 
   return (szQ.second == szQ.first && szR.second == szX.second);
 }
 
-  // norm(X - Q*R); norm(Q'*Q - eye(p)); norm(R(1:p,:)- triu(R))];
+// norm(X - Q*R); norm(Q'*Q - eye(p)); norm(R(1:p,:)- triu(R))];
 std::array<double, 3> checkValues(const std::vector<std::vector<double>>& Q,
                                   const std::vector<std::vector<double>>& R,
                                   const std::vector<std::vector<double>>& X) {
@@ -53,15 +53,15 @@ std::array<double, 3> checkValues(const std::vector<std::vector<double>>& Q,
   std::pair<int, int> szM = {szQ.second, szQ.second};
   residual[1] = norm1(szM, M);
   auto trilR = R;
-  tril( szR, trilR);
+  tril(szR, trilR);
   residual[2] = normInf(szR, trilR);
   return residual;
 }
-} // namespace
+}  // namespace
 bool testDecomposition(const std::vector<std::vector<double>>& Q1,
-         const std::vector<std::vector<double>>& R1,
-         const std::vector<std::vector<double>>& A,
-         qr_test_decomp_parameters grab_bag) {
+                       const std::vector<std::vector<double>>& R1,
+                       const std::vector<std::vector<double>>& A,
+                       qr_test_decomp_parameters grab_bag) {
   auto szQ1 = get_size(Q1);
   auto szR1 = get_size(R1);
   bool pass = true;

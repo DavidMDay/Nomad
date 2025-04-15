@@ -8,6 +8,6 @@ struct qr_test_decomp_parameters {
 };
 
 bool testDecomposition(const std::vector<std::vector<double>>& Q1,
-         const std::vector<std::vector<double>>& R1,
-         const std::vector<std::vector<double>>& A,
-         qr_test_decomp_parameters grab_bag);
+                       const std::vector<std::vector<double>>& R1,
+                       const std::vector<std::vector<double>>& A,
+                       qr_test_decomp_parameters grab_bag);
