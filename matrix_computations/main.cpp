@@ -7,15 +7,6 @@ int main() {
     std::cout << "upper triangular matrix solve failure\n";
     return EXIT_FAILURE;
   }
-  if (!testRightStridedInnerProduct()) {
-    std::cout << "StridedInnerProduct failure: test_right\n";
-    return EXIT_FAILURE;
-  }
-
-  if (!testLeftStridedInnerProduct()) {
-    std::cout << "StridedInnerProduct failure: test_left\n";
-    return EXIT_FAILURE;
-  }
 
   if (!hqrTestDecomposition()) {
     std::cout << "full QR failure\n";

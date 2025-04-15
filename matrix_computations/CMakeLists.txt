@@ -8,18 +8,26 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 project(matrix_computations)
 
+# Enable testing
+enable_testing()
 
 # Add library
 add_library(matrixlib util.cpp QRdecomposition.cpp hqr2.cpp applyQ.cpp applyQT.cpp triuSol.cpp)
-
 set_property(TARGET matrixlib PROPERTY CXX_STANDARD 17)
 
 # Add executable
-add_executable(tester main.cpp stridedInnerProductTest.cpp qrTest.cpp matrixCollection.cpp testDecomposition.cpp getSquareUpperTri.cpp triSolTest.cpp)
+add_executable(first strideTest.cpp stridedInnerProductTest.cpp)
+add_executable(tester main.cpp qrTest.cpp matrixCollection.cpp testDecomposition.cpp getSquareUpperTri.cpp triSolTest.cpp)
 
 # Link executable to library
+target_link_libraries(first matrixlib)
 target_link_libraries(tester matrixlib)
 
 target_compile_options(tester PUBLIC -std=c++14 -Wall)
 set_property(TARGET tester PROPERTY CXX_STANDARD 17)
+target_compile_options(first PUBLIC -std=c++14 -Wall)
+set_property(TARGET first PROPERTY CXX_STANDARD 17)
+
+# Add the test to CTest
+add_test(NAME MCtest COMMAND first)
 
