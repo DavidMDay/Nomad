@@ -26,14 +26,21 @@ $ type cmake
 $ type git  
 $ type cpp  
 
-*Running Examples: Example scripts are provided in the examples/ directory to demonstrate how to use the functionalities.
-
-*Testing: Unit tests are located in the tests/ directory. The main program runs the tests.
+*Building The file Helper.sh is both a script that does something like
+'make clean' and also a cheat sheet of the commands needed to build
 
 $ mkdir build_mc  
 $ cp Nomad/matrix_computations/Helper.sh build_mc 
 $ cd build_mc/  
 $ cat Helper.sh  
+
+I build outside of the code, but maybe a build directory within the project is standard now?
+Builds often fail, in which case the build directory is typically deleted.
+
+*Testing: Unit tests are located in the tests/ directory. The main program runs the tests.
+
+*Running Examples: Once matrix_computations builds and the tests pass, move on to HarmonicBalance.
+
 
 3. **Importing the Module**:
    Matrix computations is used in Harmonic Balance.  See HarmonicBalance/CMakeList.txt
