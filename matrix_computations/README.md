@@ -12,55 +12,43 @@ This directory contains the implementation and related utilities for performing 
 
 ## Directory Structure
 
-matrix_computations/
-├── core/ # Core matrix computation logic 
-├── utils/ # Helper functions and utilities
+matrix_computations/  
+├── core/ # Core matrix computation logic  
+├── utils/ # Helper functions and utilities  
 ├── tests/ # Unit tests for all implemented functionalities 
-└── examples/ # Example scripts showcasing how to use the module
+└── examples/ # Example scripts showcasing how to use the module  
 
 ## Usage
 
-1. **Importing the Module**:
-   To use the matrix computations, ensure this directory is accessible in your Python environment. You can then import it as:
-   ```python
-   from matrix_computations import <module_name>
+1. **Checking that dependencies, git,cmake, cpp, are installed:
 
-
-2. Performing Basic Operations: Example of basic matrix addition:
-Python
-
-from matrix_computations.core.operations import add_matrices
-result = add_matrices(matrix1, matrix2)
+$ type cmake
+$ type git
+$ type cpp 
 
 Running Examples: Example scripts are provided in the examples/ directory to demonstrate how to use the functionalities.
 
-Testing: Unit tests are located in the tests/ directory. Run the tests using:
-bash
+Testing: Unit tests are located in the tests/ directory. The main program runs the tests.
 
-    python -m unittest discover -s tests
+$ mkdir build_mc
+$ cp Nomad/matrix_computations/Helper.sh build_mc
+$ cd build_mc/
+$ cat Helper.sh
 
-Requirements
+3. **Importing the Module**:
+   Matrix computations is used in Harmonic Balance.  See HarmonicBalance/CMakeList.txt
 
-    Python 3.8 or later
-    Required dependencies (listed in requirements.txt):
-        numpy
-        scipy
-
-Install dependencies using:
-bash
-
-pip install -r requirements.txt
 
 Contributing
 
-Contributions are welcome! If you have ideas for new features or improvements, feel free to open an issue or submit a pull request.
+I do not provide my email address with this repository.  My intent is to welcome contributions from a few birds of a feather.
 Steps to Contribute:
 
     Fork the repository.
     Clone your fork:
     bash
 
-git clone https://github.com/<your-username>/Nomad.git
+git clone https://github.com/DavidMDay/Nomad.git
 
 Create a new branch:
 bash
@@ -75,7 +63,6 @@ License
 This project is licensed under the MIT License. See the LICENSE file for details.
 Contact
 
-For any questions or feedback, feel free to reach out to the repository owner or open an issue in the repository.
 
 Thank you for using the matrix_computations module!
 Code
