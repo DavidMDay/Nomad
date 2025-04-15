@@ -22,18 +22,18 @@ matrix_computations/
 
 1. **Checking that dependencies, git,cmake, cpp, are installed:
 
-$ type cmake
-$ type git
-$ type cpp 
+$ type cmake  
+$ type git  
+$ type cpp  
 
-Running Examples: Example scripts are provided in the examples/ directory to demonstrate how to use the functionalities.
+*Running Examples: Example scripts are provided in the examples/ directory to demonstrate how to use the functionalities.
 
-Testing: Unit tests are located in the tests/ directory. The main program runs the tests.
+*Testing: Unit tests are located in the tests/ directory. The main program runs the tests.
 
-$ mkdir build_mc
-$ cp Nomad/matrix_computations/Helper.sh build_mc
-$ cd build_mc/
-$ cat Helper.sh
+$ mkdir build_mc  
+$ cp Nomad/matrix_computations/Helper.sh build_mc 
+$ cd build_mc/  
+$ cat Helper.sh  
 
 3. **Importing the Module**:
    Matrix computations is used in Harmonic Balance.  See HarmonicBalance/CMakeList.txt
@@ -61,8 +61,5 @@ bash
 License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
-Contact
-
 
 Thank you for using the matrix_computations module!
-Code
