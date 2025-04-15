@@ -20,30 +20,24 @@ matrix_computations/
 
 ## Usage
 
-1. **Checking that dependencies, git,cmake, cpp, are installed:
+1. **Checking that dependencies are installed**:
 
 $ type cmake  
 $ type git  
 $ type cpp  
 
-*Building The file Helper.sh is both a script that does something like
-'make clean' and also a cheat sheet of the commands needed to build
+**Building**: The script Helper.sh will 'make clean' and also contains
+a cheat sheet of the commands that I use to build
 
-**My build of Harmonic Balance using Matrix Computations is weird **
-
-For example, the build directories can only be in one location.  This is why the instructinos have to be so long.
+My build of Harmonic Balance using Matrix Computations is odd.  The build directories can only be in one location:
 
 $ mkdir build_mc  
 $ cp matrix_computations/Helper.sh build_mc 
 $ cd build_mc/  
 $ cat Helper.sh  
 
-*Testing: Unit tests are located in the tests/ directory. The main program runs the tests.
 
-*Running Examples: Once matrix_computations builds and the tests pass, move on to HarmonicBalance.
-
-
-3. **Importing the Module**:
+2. **Importing the Module**:
    Matrix computations is used in Harmonic Balance.  See HarmonicBalance/CMakeList.txt
 
 
