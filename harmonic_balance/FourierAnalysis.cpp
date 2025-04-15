@@ -109,13 +109,12 @@ int TestEvenDFT()
   return EXIT_SUCCESS;
 }
 
-int TestHelp()
-{
+int TestHelp() {
   int neq(1);
   int nstep(1);
   double zero(0.0);
-  std::valarray<double> x(zero,neq*nstep);
-  FourierCoefficients c = FourierCoefficients(x,neq,nstep);
+  std::valarray<double> x(zero, static_cast<size_t>(neq * nstep));
+  FourierCoefficients c = FourierCoefficients(x, neq, nstep);
   assert(0 == c.NumTerms());
   return EXIT_SUCCESS;
 }

@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 
+//  DOES    NOT     COMPILE
 namespace {
 
 class MockHB {

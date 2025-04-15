@@ -1,7 +1,8 @@
 #pragma once
 
-#include <array>            // for array
-#include <vector>           // for vector
+#include <array>   // for array
+#include <vector>  // for vector
+
 #include "TemporalParameters.hpp"
 
 struct FixedStepIntegrator {
@@ -12,7 +13,7 @@ struct FixedStepIntegrator {
   double InitialStepSize() const { return mInitialStepSize; }
   double StepSize() const { return mCurrentStepSize; }
   double TotalDuration() const { return static_cast<double>(mNsteps) * mInitialStepSize; }
-  double TimeAtStartOfStep() const { return mTime;}
+  double TimeAtStartOfStep() const { return mTime; }
   int NSteps() const { return mNsteps; }
   int StepsTaken() const { return mStepsTaken; }
   int TotalStepsTaken() const { return mTotalStepsTaken; }
@@ -22,8 +23,8 @@ struct FixedStepIntegrator {
   void Set(TemporalParameters t);
   void IncrementTimeBeforeCallingTakeNextStep();
   void TakeNextStep();
-  void PrepareLastStep(double timeAtEndOfStep, double initialTime);
-  void PrintMe();
+  void PrepareLastStep(double timeAtEndOfStep, double initialTime) const;
+  void PrintMe() const;
 
   double mTime = 0;
   double mCurrentStepSize = 0.0;

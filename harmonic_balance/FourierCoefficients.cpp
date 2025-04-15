@@ -1,28 +1,29 @@
+// clang-format off
 #include "FourierCoefficients.hpp"
-#include "Tests.hpp"
 #include <cassert>
-#include <cmath>                            // for abs
-#include <complex>                          // for complex, operator*, imag
-#include <numeric>                          // for accumulate
-#include <ostream>                          // for operator<<, basic_ostream...
+#include <cmath>    // for abs
+#include <complex>  // for complex, operator*, imag
 #include <iostream>
-#include <valarray>                         // for valarray, _SClos, slice
-#include <vector>                           // for vector
-
+#include <numeric>   // for accumulate
+#include <ostream>   // for operator<<, basic_ostream...
+#include <valarray>  // for valarray, _SClos, slice
+#include <vector>    // for vector
+#include "Tests.hpp"
 // clang-format on
 // #######################   End Clang Header Tool Managed Headers  ########################
 
-// The idea here is to handle an array of real Fourier series. 
+// The idea here is to handle an array of real Fourier series.
 
-
-FourierCoefficients::FourierCoefficients(const std::valarray<double>& inputArray, int neq, int numstep)
+FourierCoefficients::FourierCoefficients(const std::valarray<double>& inputArray,
+                                         int neq,
+                                         int numstep)
     : m_neq(neq), m_numStep(numstep) {
   m_data.resize(numstep * neq, 0.0);
   std::valarray<std::complex<double>> uhat(numstep);
 
   double normalize0 = 1.0 / static_cast<double>(numstep);
   double normalize = 2.0 * normalize0;
-  m_maxBeta0 = 0.0;
+
   int maxhat = numstep * neq;
 
   int nmod2 = numstep % 2;
@@ -47,9 +48,9 @@ FourierCoefficients::FourierCoefficients(const std::valarray<double>& inputArray
   }
 }
 
-
 // simple static inefficient Discrete Fourier transform
-void FourierCoefficients::Dft(const std::valarray<double>& x, std::valarray<std::complex<double>>& y) {
+void FourierCoefficients::Dft(const std::valarray<double>& x,
+                              std::valarray<std::complex<double>>& y) {
   using namespace std::complex_literals;
   int n = static_cast<int>(x.size());
   double r = -(2.0 * M_PI) / static_cast<double>(n);  // W_n =exp(-2pi i/n)
@@ -77,13 +78,11 @@ void FourierCoefficients::Idft(const std::valarray<std::complex<double>>& y,
       x[j] += y[k] * std::exp(1i * angle);  // X_j = (1/n) sum(0<=k<n) Y_j    W_n^(-jk)
     }
   }
-  std::complex<double> reciprocal = static_cast<std::complex<double>>(1.0 / static_cast<double>(n));
+  auto reciprocal = static_cast<std::complex<double>>(1.0 / static_cast<double>(n));
   for (int k = 0; k < n; k++) {
     x[k] *= reciprocal;
   }
 }
-
-
 
 FourierCoefficients FourierCoefficients::norm1() const {
   FourierCoefficients accumulatedValues;
@@ -127,41 +126,40 @@ double FourierCoefficients::CosineTerm(int idof, int istep) const {
     return m_data[istep * m_neq + idof];
   } else if (nmod2 == 0 && istep == Degree() + 1) {
     int jump = Degree() + (1 - nmod2);
-    ThrowRequireMsg( jump == (m_numStep-nmod2)/2, " confused developer\n");
+    ThrowRequireMsg(jump == (m_numStep - nmod2) / 2, " confused developer\n");
     return m_data[jump * m_neq + idof];
   } else {
-           std::cout << "Invalid arguemnt to FourierCoefficients::CosineTerm" << std::endl;
+    std::cout << "Invalid arguemnt to FourierCoefficients::CosineTerm" << std::endl;
     return 0.0;
   }
 }
 
 std::vector<double> FourierCoefficients::CosineField(int j) const {
   ThrowRequireMsg(j < 0 || j >= m_numStep, "CosineField illegal argument");
-  std::vector<double> f( m_data.begin() + j*m_neq, m_data.begin() + (j+1) * m_neq);
+  std::vector<double> f(m_data.begin() + j * m_neq, m_data.begin() + (j + 1) * m_neq);
   return f;
 }
 
 std::vector<double> FourierCoefficients::SineField(int k) const {
-  ThrowRequireMsg(k == 0 , "SineField 0 is not defined");
+  ThrowRequireMsg(k == 0, "SineField 0 is not defined");
   int nmod2 = m_numStep % 2;
-  int jump = (m_numStep-nmod2)/2;
+  int jump = (m_numStep - nmod2) / 2;
   int j = k + jump;
   return CosineField(j);
 }
-
 
 double FourierCoefficients::SineTerm(int idof, int istep) const {
   assert(idof >= 0 && idof < m_neq);
   assert(istep >= 1);
   int nmod2 = m_numStep % 2;
   int jump = Degree() + (1 - nmod2);
-  ThrowRequireMsg( jump == (m_numStep-nmod2)/2, " another confused developer\n");
+  ThrowRequireMsg(jump == (m_numStep - nmod2) / 2, " another confused developer\n");
   if (istep <= Degree()) {
     return m_data[(istep + jump) * m_neq + idof];
   } else if (nmod2 == 0 && istep == Degree() + 1) {
-    return 0.0; // ?
+    return 0.0;  // ?
   } else {
-          std::cout << "Invalid arguemnt to FourierCoefficients::SineTerm" << std::endl;
+    std::cout << "Invalid arguemnt to FourierCoefficients::SineTerm" << std::endl;
     return 0.0;
   }
 }

@@ -1,8 +1,7 @@
 #pragma once
 
 #include <vector>
-struct TemporalParameters
-{
+struct TemporalParameters {
   bool mConstraintErrorDiagnosticsFlag = false;
   bool mSkipSolve = false;
   bool mUseDefaultRho = true;
